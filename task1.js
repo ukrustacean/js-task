@@ -36,18 +36,25 @@ function copyStyles(keySource, styleTarget, styleSourceMapper) {
   }
 }
 
-const ctx = {
-  __applyStyleState: function (styleState) {
+// Default styles
+const STYLES = {
+  "width": { canvas: "wide" },
+  "height": { canvas: "high" },
+  "margin": { canvas: "small" },
+};
+
+export class ctx {
+  __applyStyleState(styleState) {
     copyStyles(styleState, this, (key) => styleState[key]);
-  },
+  };
 
-  __setDefaultStyles: function () {
+  __setDefaultStyles() {
     copyStyles(STYLES, this, (key) => STYLES[key].canvas);
-  },
+  };
 
-  __getStyleState: function () {
+  __getStyleState() {
     const styleState = {};
     copyStyles(STYLES, styleState, (key) => this[key]);
     return styleState;
-  },
+  };
 };
